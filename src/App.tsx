@@ -36,6 +36,17 @@ function App() {
     setInputValue("");
   };
 
+  // handleEdit関数を定義
+  const handleEdit = (id: number, inputValue: string) => {
+    const newTodos = todos.map(todo => {
+      if (todo.id === id) {
+        todo.inputValue = inputValue;
+      }
+      return todo;
+    });
+    setTodos(newTodos);
+  };
+
   return (
     <div className="App">
       <div>
@@ -47,7 +58,7 @@ function App() {
         <ul className="todoList">
           {todos.map(todo => (
             <li key={todo.id}>
-              {todo.inputValue}
+              <input type="text" onChange={(e) => handleEdit(todo.id, e.target.value)} className="inputText" value={todo.inputValue} />
             </li>
           ))}
         </ul>
