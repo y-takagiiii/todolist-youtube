@@ -20,14 +20,37 @@ function App() {
     setInputValue(e.target.value);
   };
 
+  // handleSubmit関数を定義
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    // enterキーでリロードされないようにしておく
+    e.preventDefault();
+    // 新しいtodoを作成
+    const newTodo: Todo = {
+      inputValue: inputValue,
+      id: todos.length,
+      checked: false,
+    };
+    // スプレッド構文を使って既存のtodosにnewTodoを追加する
+    setTodos([newTodo, ...todos]);
+    // 作成後はフォームの中を空にしておく
+    setInputValue("");
+  };
+
   return (
     <div className="App">
       <div>
         <h2>Todoリスト</h2>
-        <form onSubmit={() => {}}>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <input type="text" onChange={(e) => handleChange(e)} className="inputText" />
           <input type="submit" value="作成" className="submitButton" />
         </form>
+        <ul className="todoList">
+          {todos.map(todo => (
+            <li key={todo.id}>
+              {todo.inputValue}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
