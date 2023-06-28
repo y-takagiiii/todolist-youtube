@@ -58,6 +58,12 @@ function App() {
     setTodos(newTodos);
   };
 
+  // handleDelete関数を定義
+  const handleDelete = (id: number) => {
+    const newTodos = todos.filter(todo => todo.id !== id);
+    setTodos(newTodos);
+  };
+
   return (
     <div className="App">
       <div>
@@ -71,6 +77,7 @@ function App() {
             <li key={todo.id}>
               <input type="text" onChange={(e) => handleEdit(todo.id, e.target.value)} className="inputText" value={todo.inputValue} disabled={todo.checked} />
               <input type="checkbox" onChange={() => handleChecked(todo.id, todo.checked)} />
+              <button onClick={() => handleDelete(todo.id)}>削除</button>
             </li>
           ))}
         </ul>
