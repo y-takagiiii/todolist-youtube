@@ -47,6 +47,17 @@ function App() {
     setTodos(newTodos);
   };
 
+  // handleChecked関数を定義
+  const handleChecked = (id: number, checked: boolean) => {
+    const newTodos = todos.map(todo => {
+      if (todo.id === id) {
+        todo.checked = !checked;
+      }
+      return todo;
+    });
+    setTodos(newTodos);
+  };
+
   return (
     <div className="App">
       <div>
@@ -58,7 +69,8 @@ function App() {
         <ul className="todoList">
           {todos.map(todo => (
             <li key={todo.id}>
-              <input type="text" onChange={(e) => handleEdit(todo.id, e.target.value)} className="inputText" value={todo.inputValue} />
+              <input type="text" onChange={(e) => handleEdit(todo.id, e.target.value)} className="inputText" value={todo.inputValue} disabled={todo.checked} />
+              <input type="checkbox" onChange={() => handleChecked(todo.id, todo.checked)} />
             </li>
           ))}
         </ul>
